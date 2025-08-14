@@ -109,3 +109,4 @@ console.log({ arr1, newArr, sum });
 const newSum = arr1.reduce((prev, curr) => prev + curr, 0);
 
 console.log({ newSum });
+console.log("hello");
