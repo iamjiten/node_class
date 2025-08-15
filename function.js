@@ -108,3 +108,11 @@
 const sayHello = (name, age = 10) => `Hello ${name}. you are ${age} years old`;
 
 console.log(sayHello("jiten"));
+
+// checkout and new branch
+// git checkout -b branch_name
+// list branch
+// git branch
+
+// delete local branch
+// git branch -D branch_name
