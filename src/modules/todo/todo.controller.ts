@@ -6,6 +6,7 @@ import { CREATED, NOT_FOUND, OK } from "../../constants/http_status";
 
 export const createTodoHandler = (req: Request, res: Response) => {
   const data = req.body;
+
   const tobePush: ITodo = {
     id: uuidv4(),
     title: data.title,

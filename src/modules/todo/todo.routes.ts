@@ -7,9 +7,11 @@ import {
   getTodoHandler,
   updateTodoHandler,
 } from "./todo.controller";
+import { validate } from "../../midlewares/validation.middleware";
+import { createTodo } from "../../validations/todo.validation";
 
 const router = Router();
-router.post("/", createTodoHandler);
+router.post("/", validate(createTodo), createTodoHandler);
 router.get("/", getTodoHandler);
 
 // router.post("/:todoId", (req: Request, res: Response) => {
