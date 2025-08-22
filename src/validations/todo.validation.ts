@@ -7,3 +7,5 @@ export const createTodo = z.object({
     .min(3, { message: "Title must be atleast 3 character" }),
   status: z.boolean(),
 });
+
+export type createTodoType = z.infer<typeof createTodo>;

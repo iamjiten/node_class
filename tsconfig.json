@@ -11,5 +11,9 @@
     "strictPropertyInitialization": false,
     "noUnusedLocals": true,
     "skipLibCheck": true,
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["src/"]
+    }
   }
 }
