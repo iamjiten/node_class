@@ -32,6 +32,15 @@ export const updateTodoHandler = async (req: Request, res: Response) => {
   // const { todoId } = req.params;
   const todoId = req.params.todoId;
 
+  const exist = await getById(todoId);
+  if (!exist) {
+    res.status(NOT_FOUND).json({
+      message: "Todo not found",
+      success: true,
+      statusCode: NOT_FOUND,
+    });
+    return;
+  }
   const { success, message, statusCode, data } = await updateTodo(
     todoId,
     req.body
