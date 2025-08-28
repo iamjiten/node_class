@@ -98,20 +98,20 @@ export const updateTodo = async (todoId: string, data: createTodoType) => {
   // found.status = data.status;
   // await found.save();
 
-  const updatedTodo = await TodoModel.findByIdAndUpdate(
-    todoId,
-    {
-      $set: {
-        title: data.title,
-      },
-    },
-    {
-      new: true,
-    }
-  );
-  // const updatedTodo = await TodoModel.findByIdAndUpdate(todoId, data, {
-  //   new: true,
-  // });
+  // const updatedTodo = await TodoModel.findByIdAndUpdate(
+  //   todoId,
+  //   {
+  //     $set: {
+  //       title: data.title,
+  //     },
+  //   },
+  //   {
+  //     new: true,
+  //   }
+  // );
+  const updatedTodo = await TodoModel.findByIdAndUpdate(todoId, data, {
+    new: true,
+  });
   return {
     success: true,
     message: "Todo updated",

@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { CREATED, NOT_FOUND, OK } from "../../constants/http_status";
+
 import {
   createTodo,
   deleteTodo,
@@ -7,6 +7,7 @@ import {
   getById,
   updateTodo,
 } from "./todo.service";
+import { CREATED, NOT_FOUND, OK } from "@/constants/http_status";
 
 export const createTodoHandler = async (req: Request, res: Response) => {
   const newTodo = await createTodo(req.body);
@@ -69,7 +70,7 @@ export const getTodoById = async (req: Request, res: Response) => {
   }
   res.status(OK).json({
     success: false,
-    statusCode: NOT_FOUND,
+    statusCode: OK,
     message: "Todos not found",
     data: { todo: found },
   });

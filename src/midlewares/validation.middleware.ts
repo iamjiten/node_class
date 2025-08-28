@@ -5,7 +5,7 @@ import { UNPROCESSABLE_CONTENT } from "../constants/http_status";
 export const validate =
   (schema: ZodSchema) => (req: Request, res: Response, next: NextFunction) => {
     const result = schema.safeParse(req.body);
-
+    console.log({ result });
     if (!result.success) {
       const errors = Object.fromEntries(
         Object.entries(result.error.format())
