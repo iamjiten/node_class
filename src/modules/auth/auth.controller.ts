@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { createUser, findOneBy } from "../user/user.service";
+import { createUser, findOneBy } from "@/modules/user/user.service";
 import {
   CONFLICT,
   CREATED,
@@ -53,8 +53,10 @@ export const loginHandler = async (req: Request, res: Response) => {
     });
   }
 
-  const accessTokenExpiresIn = Number(process.env.JWT_EXPIRES_IN) || 60 * 60;
+  // const accessTokenExpiresIn = Number(process.env.JWT_EXPIRES_IN) || 60 * 60;
+  const accessTokenExpiresIn = 1;
   const jwtSecre = process.env.JWT_SECRET || "node_class";
+  console.log({ jwtSecre });
 
   const refreshTokenExpiresIn =
     Number(process.env.JWT_REFRESH_EXPIRES_IN) || 60 * 60;
@@ -95,7 +97,7 @@ export const loginHandler = async (req: Request, res: Response) => {
     encodeToken(refreshJwtData),
   ]);
   console.timeEnd("startTime");
-  console.log({ accessToken });
+
   res
     .status(OK)
     .json({ data: { access_token: accessToken, refresh_token: refreshToken } });

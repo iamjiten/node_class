@@ -19,14 +19,6 @@ const PORT = process.env.PORT;
 const MONGO_URI = process.env.MONGO_URI;
 connectDb(MONGO_URI);
 
-// const saltRounds = 10;
-// const pwd = "test";
-// const hashPwd = bcrypt.hashSync(pwd, saltRounds);
-
-// const pwdnew = "Test";
-// const isVerify = bcrypt.compareSync(pwdnew, hashPwd);
-// console.log({ isVerify, hashPwd });
-
 app.listen(PORT, () => {
   console.log(`Server is running: http://localhost:${PORT}`);
 });

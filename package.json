@@ -13,7 +13,9 @@
   "_moduleAliases": {
     "@": "./dist",
     "@/modules": "./dist/modules",
-    "@/utils": "./dist/utils"
+    "@/utils": "./dist/utils",
+    "@/models": "./dist/models",
+    "@/exceptions": "./dist/exceptions"
   },
   "dependencies": {
     "bcrypt": "^6.0.0",

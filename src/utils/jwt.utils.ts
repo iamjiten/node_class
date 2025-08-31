@@ -13,6 +13,7 @@ export const decodeToken = async (
   token: string,
   secret: string
 ): Promise<{ sub: string; email: string }> => {
+  console.log({ test: "test" });
   try {
     const decoded: any = await jwt.verify(token, secret);
     return { sub: decoded.sub, email: decoded.email };
@@ -20,6 +21,8 @@ export const decodeToken = async (
     // if (err instanceof TokenExpiredError) {
     //   return "Token Expired";
     // }
+    console.log("hello");
+    throw new Error(err.message);
     return err.message;
   }
 };

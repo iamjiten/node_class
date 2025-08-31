@@ -2,7 +2,7 @@
 
 import { createTodoType } from "../../validations/todo.validation";
 import { NOT_FOUND, OK } from "../../constants/http_status";
-import TodoModel from "./todo.model";
+import TodoModel from "../../models/todo.model";
 
 export const createTodo = async (data: createTodoType) => {
   const todo = TodoModel.create(data);

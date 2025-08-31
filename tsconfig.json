@@ -15,7 +15,9 @@
     "paths": {
       "@/*": ["./src/*"],
       "@/modules/*": ["./src/modules/*"],
-      "@/utils/*": ["./src/utils/*"]
+      "@/utils/*": ["./src/utils/*"],
+      "@/models/*": ["./src/models/*"],
+      "@/exceptions/*": ["./src/exceptions/*"],
     }
   }
 }
