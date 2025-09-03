@@ -3,9 +3,13 @@
 import { createTodoType } from "../../validations/todo.validation";
 import { NOT_FOUND, OK } from "../../constants/http_status";
 import TodoModel from "../../models/todo.model";
+import { TodoType } from "@/types/todo.types";
 
-export const createTodo = async (data: createTodoType) => {
-  const todo = TodoModel.create(data);
+export const createTodo = async (
+  userId: string,
+  data: createTodoType
+): Promise<TodoType> => {
+  const todo = TodoModel.create({ ...data, user: userId });
   // const tobePush: ITodo = {
   //   id: uuidv4(),
   //   title: data.title,
@@ -15,10 +19,18 @@ export const createTodo = async (data: createTodoType) => {
   return todo;
 };
 
-export const getAllTodo = async () => {
+export const getAllTodo = async (userId: string) => {
   // const todos = TodoModel.find();
   // return todos;
-  return TodoModel.find();
+
+  return (
+    TodoModel.find({ user: userId, title: { $in: ["Test 3", "Test 2"] } })
+      .select(["-user"])
+      // .select({ user: false })
+      // .select(["title", "-_id"])
+      .sort("-createdAt")
+  );
+  // return TodoModel.find({ user: userId }).sort({ createdAt: "desc" });
 };
 
 export const getById = async (

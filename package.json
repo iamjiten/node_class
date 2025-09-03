@@ -15,7 +15,8 @@
     "@/modules": "./dist/modules",
     "@/utils": "./dist/utils",
     "@/models": "./dist/models",
-    "@/exceptions": "./dist/exceptions"
+    "@/exceptions": "./dist/exceptions",
+    "@/types": "./dist/types"
   },
   "dependencies": {
     "bcrypt": "^6.0.0",

@@ -53,8 +53,8 @@ export const loginHandler = async (req: Request, res: Response) => {
     });
   }
 
-  // const accessTokenExpiresIn = Number(process.env.JWT_EXPIRES_IN) || 60 * 60;
-  const accessTokenExpiresIn = 1;
+  const accessTokenExpiresIn = Number(process.env.JWT_EXPIRES_IN) || 60 * 60;
+  // const accessTokenExpiresIn = 1;
   const jwtSecre = process.env.JWT_SECRET || "node_class";
   console.log({ jwtSecre });
 

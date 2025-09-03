@@ -1,5 +1,5 @@
-import { BAD_REQUEST } from "@/constants/http_status";
-import { HttpException } from "@/exceptions/http.exception";
+import { BadRequestException, UnauthorizeException } from "@/exceptions";
+
 import { findById } from "@/modules/user/user.service";
 import { decodeToken } from "@/utils/jwt.utils";
 import { NextFunction, Request, Response } from "express";
@@ -14,6 +14,7 @@ export const checkAuth = async (
 
   const requestedToken = request.authorization;
   if (!requestedToken) {
+    throw new UnauthorizeException();
     res.json({ data: { success: false, message: "Token is missing" } });
     return;
   }
@@ -26,7 +27,7 @@ export const checkAuth = async (
       typeof decodeedToken == "string" &&
       `${decodeedToken}`?.toLowerCase() == "jwt expired"
     ) {
-      throw new HttpException(BAD_REQUEST, `${decodeedToken}`);
+      throw new BadRequestException(`${decodeedToken}`);
       // res.json({ data: { success: false, message: decodeedToken } });
       // return;
     }
@@ -37,6 +38,7 @@ export const checkAuth = async (
     req.user = user;
     next();
   } catch (err) {
+    throw new UnauthorizeException();
     res.json({ data: { success: false, message: err.message } });
     return;
   }

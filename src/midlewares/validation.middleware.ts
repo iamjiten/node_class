@@ -15,7 +15,7 @@ export const validate =
           })
           .filter(Boolean) // Remove any null entries
       );
-
+      // throw new UnProcessableException(errors);
       res.status(UNPROCESSABLE_CONTENT).json({
         message: "Validation Error",
         success: false,

@@ -18,6 +18,7 @@
       "@/utils/*": ["./src/utils/*"],
       "@/models/*": ["./src/models/*"],
       "@/exceptions/*": ["./src/exceptions/*"],
+      "@/types/*": ["./src/types/*"]
     }
   }
 }

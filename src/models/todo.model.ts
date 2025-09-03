@@ -1,4 +1,5 @@
 // import mongoose from "mongoose";
+import { TodoType } from "@/types/todo.types";
 import { model, Schema } from "mongoose";
 // const { Schema } = mongoose;
 const todoSchema = new Schema(
@@ -10,9 +11,9 @@ const todoSchema = new Schema(
     status: Boolean,
     // createdAt: { type: Date, default: Date.now() },
     // assignedTo: Array<String>,
-    assignedTo: {
-      name: String,
-      email: Schema.Types.String,
+    user: {
+      // type: String,
+      type: Schema.Types.ObjectId,
     },
   },
   {
@@ -20,6 +21,6 @@ const todoSchema = new Schema(
     versionKey: false,
   }
 );
-const TodoModel = model("Todo", todoSchema);
+const TodoModel = model<TodoType>("Todo", todoSchema);
 // const TodoModel = mongoose.model("Todo", todoSchema);
 export default TodoModel;
