@@ -34,7 +34,6 @@ export const checkAuth = async (
 
     const id = decodeedToken.sub;
     const user = await findById(id);
-    // @ts-ignore
     req.user = user;
     next();
   } catch (err) {

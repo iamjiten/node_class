@@ -1,80 +1,56 @@
-// import { ITodo } from "./todo.types";
-
 import { createTodoType } from "../../validations/todo.validation";
-import { NOT_FOUND, OK } from "../../constants/http_status";
+import { OK } from "../../constants/http_status";
 import TodoModel from "../../models/todo.model";
 import { TodoType } from "@/types/todo.types";
+import { NotFoundException } from "@/exceptions";
+import { FilterQuery } from "mongoose";
 
 export const createTodo = async (
   userId: string,
   data: createTodoType
 ): Promise<TodoType> => {
   const todo = TodoModel.create({ ...data, user: userId });
-  // const tobePush: ITodo = {
-  //   id: uuidv4(),
-  //   title: data.title,
-  //   status: data.status,
-  // };
-  // todos.push(tobePush);
   return todo;
 };
 
-export const getAllTodo = async (userId: string) => {
-  // const todos = TodoModel.find();
-  // return todos;
-
-  return (
-    TodoModel.find({ user: userId, title: { $in: ["Test 3", "Test 2"] } })
+export const getAllTodo = async (
+  query: FilterQuery<TodoType>,
+  paginationData?: { per_page: number; page: number }
+) => {
+  const { per_page, page } = paginationData;
+  let currentPage = page ?? 1;
+  let limit = per_page ?? 5;
+  const skip = (currentPage - 1) * limit;
+  const [count, todos] = await Promise.all([
+    TodoModel.countDocuments(query),
+    TodoModel.find(query)
       .select(["-user"])
-      // .select({ user: false })
-      // .select(["title", "-_id"])
-      .sort("-createdAt")
-  );
-  // return TodoModel.find({ user: userId }).sort({ createdAt: "desc" });
+      .limit(limit)
+      .skip(skip)
+      .sort("-createdAt"),
+  ]);
+
+  const pagination = {
+    page: currentPage,
+    per_page,
+    total: count,
+    total_page: Math.ceil(count / per_page),
+  };
+  return { pagination, todos };
 };
 
 export const getById = async (
   todoId: string,
   returnType: "obj" | "index" = "obj"
 ) => {
-  // : Promise<ITodo | number> => {
-  return TodoModel.findById(todoId);
-  // return returnType == "index"
-  //   ? todos.findIndex((x: ITodo) => x.id == todoId)
-  //   : todos.find((x: ITodo) => x.id == todoId);
-
-  // if (returnType == "index") {
-  //   const found = todos.findIndex((x: ITodo) => x.id == todoId);
-  //   return found;
-  // }
-  // const found = todos.find((x: ITodo) => x.id == todoId);
-  // return found;
+  const todo = await TodoModel.findById(todoId);
+  if (!todo) throw new NotFoundException("Todo not found");
+  return todo;
 };
 
 export const deleteTodo = async (todoId: string) => {
-  // const found = (await getById(todoId, "index")) as number;
-  // const found = await getById(todoId, "index");
-  // if (Number(found) < 0) {
-  //   return {
-  //     success: false,
-  //     message: "Todos not found",
-  //     statusCode: NOT_FOUND,
-  //   };
-  // }
-  // todos.splice(Number(found), 1);
-  // return {
-  //   success: true,
-  //   message: "Todo deleted",
-  //   statusCode: OK,
-  // }
-
   const deletedTodo = await TodoModel.findByIdAndDelete(todoId);
-  if (!deletedTodo)
-    return {
-      success: false,
-      message: "Todos not found",
-      statusCode: NOT_FOUND,
-    };
+  if (!deletedTodo) throw new NotFoundException("Todo not found from service");
 
   return {
     success: true,
@@ -84,43 +60,6 @@ export const deleteTodo = async (todoId: string) => {
 };
 
 export const updateTodo = async (todoId: string, data: createTodoType) => {
-  // const found = await getById(todoId, "index");
-  // if (Number(found) < 0) {
-  //   return {
-  //     success: false,
-  //     message: "Todos not found",
-  //     statusCode: NOT_FOUND,
-  //     data: null,
-  //   };
-  // }
-  // const newTodo: ITodo = {
-  //   id: todoId,
-  //   title: data.title,
-  //   status: data.status,
-  // };
-  // todos.splice(Number(found), 1, newTodo);
-  // return {
-  //   success: true,
-  //   message: "Todo updated",
-  //   statusCode: OK,
-  //   data: { todo: newTodo },
-  // };
-  // const found = await getById(todoId);
-  // found.title = data.title;
-  // found.status = data.status;
-  // await found.save();
-
-  // const updatedTodo = await TodoModel.findByIdAndUpdate(
-  //   todoId,
-  //   {
-  //     $set: {
-  //       title: data.title,
-  //     },
-  //   },
-  //   {
-  //     new: true,
-  //   }
-  // );
   const updatedTodo = await TodoModel.findByIdAndUpdate(todoId, data, {
     new: true,
   });
