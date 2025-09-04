@@ -24,7 +24,7 @@ export const getAllTodo = async (
   const [count, todos] = await Promise.all([
     TodoModel.countDocuments(query),
     TodoModel.find(query)
-      .select(["-user"])
+      .populate("user")
       .limit(limit)
       .skip(skip)
       .sort("-createdAt"),
