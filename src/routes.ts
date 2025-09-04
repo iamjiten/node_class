@@ -4,11 +4,13 @@ import userRoutes from "./modules/user/user.route";
 import authRoutes from "./modules/auth/auth.route";
 import { NOT_FOUND } from "./constants/http_status";
 import { checkAuth } from "./midlewares/auth.middleware";
+import productRoutes from "./modules/product/product.route";
 
 const router = Router();
 router.use("/todo", checkAuth, todoRoutes);
 router.use("/user", userRoutes);
 router.use("/auth", authRoutes);
+router.use("/product", productRoutes);
 
 router.all("/{*any}", (req: Request, res: Response) => {
   return res

@@ -102,3 +102,12 @@ export const loginHandler = async (req: Request, res: Response) => {
     .status(OK)
     .json({ data: { access_token: accessToken, refresh_token: refreshToken } });
 };
+
+export const getUserProfileHandler = (req: Request, res: Response) => {
+  return res.json({
+    data: {
+      success: true,
+      user: req.user,
+    },
+  });
+};
