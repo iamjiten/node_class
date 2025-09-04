@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "target": "ES2024",
+    "module": "CommonJS",
+    "rootDir": "./src",
+    "resolveJsonModule": true, 
+    "outDir": "./dist",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true, 
+    "strict": false,
+    "strictPropertyInitialization": false,
+    "noUnusedLocals": true,
+    "skipLibCheck": true,
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@/modules/*": ["./src/modules/*"],
+      "@/utils/*": ["./src/utils/*"],
+      "@/models/*": ["./src/models/*"],
+      "@/exceptions/*": ["./src/exceptions/*"],
+      "@/types/*": ["./src/types/*"]
+    }
+  }
+}

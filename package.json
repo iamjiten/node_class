@@ -1,0 +1,41 @@
+{
+  "name": "node_class",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "dev": "nodemon src/app.ts",
+    "build": "tsc",
+    "start": "node dist/app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "_moduleAliases": {
+    "@": "./dist",
+    "@/modules": "./dist/modules",
+    "@/utils": "./dist/utils",
+    "@/models": "./dist/models",
+    "@/exceptions": "./dist/exceptions",
+    "@/types": "./dist/types"
+  },
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "dotenv": "^17.2.1",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "module-alias": "^2.2.3",
+    "mongodb": "^6.18.0",
+    "mongoose": "^8.17.2",
+    "uuid": "^11.1.0",
+    "zod": "^4.0.17"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^6.0.0",
+    "@types/express": "^5.0.3",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/module-alias": "^2.0.4",
+    "nodemon": "^3.1.10",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.2"
+  }
+}
