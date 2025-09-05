@@ -1,7 +1,11 @@
 import { Request, Response } from "express";
 import { FilterQuery } from "mongoose";
 import { IProduct } from "./product.type";
-import { createProduct, getProducts } from "./product.service";
+import {
+  createProduct,
+  getProductBySlug,
+  getProducts,
+} from "./product.service";
 import { CREATED, OK } from "@/constants/http_status";
 
 export const getProductsHandler = async (req: Request, res: Response) => {
@@ -26,7 +30,6 @@ export const getProductsHandler = async (req: Request, res: Response) => {
     success: true,
     statusCode: 200,
     data: products,
-    query,
   });
 };
 
@@ -42,6 +45,19 @@ export const createProductHandler = async (req: Request, res: Response) => {
 };
 
 export const updateProductHandler = (req: Request, res: Response) => {};
+
 export const deleteProductHandler = (req: Request, res: Response) => {};
-export const getProductBySlugHandler = (req: Request, res: Response) => {};
+
+export const getProductBySlugHandler = async (req: Request, res: Response) => {
+  const { slug } = req.params;
+  const product = await getProductBySlug(slug);
+
+  res.status(OK).json({
+    message: "Product Retrieved",
+    success: true,
+    statusCode: OK,
+    data: { product },
+  });
+};
+
 export const getProductByIdHandler = (req: Request, res: Response) => {};

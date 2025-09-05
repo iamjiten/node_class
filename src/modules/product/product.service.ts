@@ -30,21 +30,21 @@ export const getProducts = async (
 export const createProduct = async (
   data: createProductType
 ): Promise<IProduct> => {
-  const todo = Product.create(data);
-  return todo;
+  const product = await Product.create(data);
+  return product;
 };
 export const updateProduct = async (
   productId: string,
   data: createProductType
 ) => {
-  const updatedTodo = await Product.findByIdAndUpdate(productId, data, {
+  const updatedProduct = await Product.findByIdAndUpdate(productId, data, {
     new: true,
   });
   return {
     success: true,
-    message: "Todo updated",
+    message: "Product updated",
     statusCode: OK,
-    data: { product: updatedTodo },
+    data: { product: updatedProduct },
   };
 };
 export const deleteProduct = async (productId: string) => {
@@ -60,6 +60,7 @@ export const deleteProduct = async (productId: string) => {
 
 export const getProductBySlug = async (slug: string) => {
   const product = await Product.findOne({ slug });
+
   if (!product) throw new NotFoundException("Product not found");
   return product;
 };
