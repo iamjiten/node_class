@@ -1,4 +1,4 @@
-import { UserType } from "@/types/user.type";
+import { UserRole, UserType } from "@/types/user.type";
 import { model, Schema } from "mongoose";
 
 const userSchema = new Schema(
@@ -9,7 +9,11 @@ const userSchema = new Schema(
       unique: true,
     },
     password: String,
-    role: String,
+    role: {
+      type: String,
+      enum: UserRole,
+      default: UserRole.USER,
+    },
   },
   {
     timestamps: true,

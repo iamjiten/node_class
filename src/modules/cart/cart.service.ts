@@ -1,7 +1,10 @@
 import Cart from "@/models/cart.model";
 import { addToCartType, updateQtyType } from "@/validations/cart.validation";
 
-export const getCarts = async (userId: string) => Cart.find({ user: userId });
+export const getCarts = async (userId: string) => {
+  const cart = await Cart.find({ user: userId }).populate("product");
+  return cart;
+};
 
 export const addToCart = async (userId: string, data: addToCartType) =>
   Cart.create({ user: userId, ...data });

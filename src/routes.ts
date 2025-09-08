@@ -6,6 +6,7 @@ import { NOT_FOUND } from "./constants/http_status";
 import { checkAuth } from "./midlewares/auth.middleware";
 import productRoutes from "./modules/product/product.route";
 import cartRoutes from "./modules/cart/cart.route";
+import orderRoutes from "./modules/order/order.route";
 
 const router = Router();
 router.use("/todo", checkAuth, todoRoutes);
@@ -13,6 +14,7 @@ router.use("/user", userRoutes);
 router.use("/auth", authRoutes);
 router.use("/product", productRoutes);
 router.use("/cart", checkAuth, cartRoutes);
+router.use("/order", checkAuth, orderRoutes);
 
 router.all("/{*any}", (req: Request, res: Response) => {
   return res
